@@ -1,0 +1,157 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:MyWPFUI.Controls">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/MyWPFUI;component/Resources/BasicControl/BasicControlCollection.xaml"></ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+    <Style x:Key="TemplateBorder" TargetType="Border">
+        <Setter Property="Background" Value="{Binding Path=Background, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}" />
+        <Setter Property="BorderBrush" Value="{Binding Path=BorderBrush, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}" />
+        <Setter Property="BorderThickness" Value="{Binding Path=BorderThickness, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}" />
+        <Setter Property="Padding" Value="{Binding Path=Padding, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}" />
+    </Style>
+    <Style  TargetType="{x:Type controls:MyTextBox}"  BasedOn="{StaticResource {x:Type TextBox}}">
+        <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+        <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <Setter Property="AllowDrop" Value="true"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
+        <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="MaskHorizontalAlignment" Value="Stretch"></Setter>
+        <Setter Property="MaskVerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="MaskForeground" Value="#91959c"></Setter>
+        <Setter Property="MaskFontSize" Value="14"></Setter>
+        <Setter Property="Padding" Value="2,0,2,0"></Setter>
+        <Setter Property="MaskOpacity" Value="0.8"></Setter>
+        <Setter Property="Background" Value="White"></Setter>
+        <Setter Property="IntCount" Value="200"></Setter>
+        <Setter Property="Units" Value="2"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:MyTextBox}">
+                    <Border x:Name="waiborder" BorderBrush="{TemplateBinding BorderBrush}" Style="{StaticResource TemplateBorder}"  BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding CornerRadius}">
+                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ContentPresenter x:Name="leftcp" Grid.Column="0" Content="{TemplateBinding LeftContent}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                                              TextElement.Foreground="{TemplateBinding Foreground}" TextElement.FontSize="{TemplateBinding FontSize}" Margin="{TemplateBinding Padding}"/>
+                            <ScrollViewer x:Name="PART_ContentHost"  Grid.Column="1" SnapsToDevicePixels="True"
+                                          VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Padding="0"
+                                      VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                      HorizontalScrollBarVisibility="{TemplateBinding HorizontalScrollBarVisibility}" VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}"  />
+                            <ContentPresenter x:Name="Message"  Grid.Column="1" ContentSource="Mask"
+                                              TextBlock.Foreground="{TemplateBinding MaskForeground}"
+                                              TextBlock.FontSize="{TemplateBinding MaskFontSize}"
+                                              TextElement.Foreground="{TemplateBinding MaskForeground}"
+                                              TextElement.FontSize="{TemplateBinding MaskFontSize}" 
+                                              Margin="{TemplateBinding Padding}" 
+                                              IsHitTestVisible="False" 
+                                              Opacity="{TemplateBinding MaskOpacity}"
+                                              VerticalAlignment="{TemplateBinding MaskVerticalAlignment}"
+                                              HorizontalAlignment="{TemplateBinding MaskHorizontalAlignment}"/>
+                            <ContentPresenter x:Name="rightcp" Grid.Column="2" Content="{TemplateBinding RightContent}" 
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="Right"
+                                              TextElement.Foreground="{TemplateBinding Foreground}" TextElement.FontSize="{TemplateBinding FontSize}" />
+
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="HasText" Value="False"/>
+                                <Condition Property="IsFocused" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <!--<Setter Property="Opacity" Value="0.4" TargetName="Message"></Setter>-->
+                            <Setter Property="Visibility" Value="Collapsed" TargetName="Message"></Setter>
+                        </MultiTrigger>
+                        <Trigger Property="HasText" Value="True">
+                            <Setter Property="Visibility" Value="Collapsed" TargetName="Message"></Setter>
+                        </Trigger>
+                        <Trigger Property="LeftContent" Value="{x:Null}">
+                            <Setter TargetName="leftcp" Property="Margin" Value="0"></Setter>
+                        </Trigger>
+                        <Trigger Property="RightContent" Value="{x:Null}">
+                            <Setter TargetName="rightcp" Property="Margin" Value="0"></Setter>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <!--<Setter Property="Background" Value="{DynamicResource DisabledBaseBrush}" TargetName="Bd"/>-->
+                            <Setter Property="BorderBrush" Value="{DynamicResource DisabledBaseBrush}" />
+                            <Setter Property="TextBlock.TextTrimming" Value="WordEllipsis"></Setter>
+
+                        </Trigger>
+                        <!--<Trigger Property="Width" Value="Auto">
+                            <Setter Property="MinWidth" Value="100"/>
+                        </Trigger>-->
+                        <!--<Trigger Property="Height" Value="Auto">
+                            <Setter Property="MinHeight" Value="20"/>
+                        </Trigger>-->
+                        <!--<DataTrigger Binding="{Binding IsError,RelativeSource={RelativeSource AncestorType={x:Type controls:MyTextBox},Mode=FindAncestor}}" Value="true">
+                            <Setter Property="BorderBrush" Value="#F00"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                        </DataTrigger>-->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="IBeam"></Setter>
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsKeyboardFocusWithin" Value="True"></Condition>
+                                <Condition Property="IsReadOnly" Value="false"></Condition>
+                                <Condition Property="IsEnabled" Value="true"></Condition>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="BorderBrush" Value="{StaticResource FocusBorderBrush}"></Setter>
+                            <Setter TargetName="waiborder" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect BlurRadius="10" ShadowDepth="0" Direction="0" Opacity="0.3" Color="#91B4F3"/>
+                                </Setter.Value>
+                            </Setter>
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsVisible" Value="False">
+                <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Cursor" Value="IBeam"></Setter>
+            </Trigger>
+            <!--<Trigger Property="IsSearchStyle" Value="True">
+                <Setter Property="Template" Value="{StaticResource MyTextBoxSearchStyle}">
+                </Setter>
+                <Setter Property="FontSize" Value="14"></Setter>
+            </Trigger>-->
+
+            <!--<Trigger Property="controls:MyTextBox.IsSearchStyle" Value="True">
+                <Setter Property="Template" Value="{StaticResource SearchControlTemplate}"></Setter>
+            </Trigger>-->
+            <!--<Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{DynamicResource DisabledBaseBrush}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border  
+                            BorderBrush="{DynamicResource DisabledBaseBrush}" BorderThickness="1" CornerRadius="0">
+                                <TextBlock Text="{TemplateBinding Text}" IsEnabled="{TemplateBinding IsEnabled}"
+                                            Margin="4,0,0,0" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                           ToolTipService.ToolTip="{Binding RelativeSource={RelativeSource Self},Path=Text}"
+                                           ToolTipService.ShowOnDisabled="True"
+                                           HorizontalAlignment="Left" 
+                                           TextTrimming="CharacterEllipsis" Background="Transparent" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>-->
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>
