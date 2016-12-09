@@ -56,9 +56,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Compile Include="Common\MyTime.cs" />
     <Compile Include="Controls\MyTextBox\Implementation\MyTextBox.cs" />
+    <Compile Include="Controls\UserControls\AutoCompleteTextBox.xaml.cs">
+      <DependentUpon>AutoCompleteTextBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Extensiones\Extensiones.cs" />
     <Compile Include="Helpers\TextDigitalHelper.cs" />
+    <Page Include="Controls\UserControls\AutoCompleteTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\BasicControl\BasicControlCollection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -115,7 +123,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controls\UserControls\" />
     <Folder Include="Resources\Themes\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
