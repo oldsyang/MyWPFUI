@@ -10,10 +10,12 @@ using System.Windows.Input;
 
 namespace MyWPFUI.Controls
 {
+    /// <summary>
+    /// 来源地址：https://github.com/y19890902q/MyWPFUI.git
+    /// 最后编辑：yq  2016年12月4日
+    /// </summary>
     public static class TextDigitalHelper
     {
-
-
         public static readonly DependencyProperty InputTextTypeProperty = DependencyProperty.RegisterAttached(
             "InputTextType", typeof(TextInputType), typeof(TextDigitalHelper),
             new PropertyMetadata(default(TextInputType), new PropertyChangedCallback(InputTextTypeChangedCallBack)));

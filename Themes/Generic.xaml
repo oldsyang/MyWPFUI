@@ -3,5 +3,7 @@
                     >
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/MyWPFUI;component/Controls/MyTextBox/Themes/Generic.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/MyWPFUI;component/Controls/MyImageButton/Themes/Generic.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/MyWPFUI;component/Controls/MyButton/Themes/Generic.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

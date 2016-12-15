@@ -6,6 +6,10 @@ using System.Windows.Threading;
 
 namespace MyWPFUI.Controls
 {
+    /// <summary>
+    /// 来源地址：https://github.com/y19890902q/MyWPFUI.git
+    /// 最后编辑：yq  2016年12月4日
+    /// </summary>
     public class MyTime
     {
         /// <summary>

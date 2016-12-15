@@ -4,5 +4,15 @@
     
     <SolidColorBrush x:Key="DisabledBaseBrush" Color="#dddddd"></SolidColorBrush>
     <SolidColorBrush x:Key="FocusBorderBrush">#91B4F3</SolidColorBrush>
+    <SolidColorBrush x:Key="TextForeground" Color="White"></SolidColorBrush>
+    <SolidColorBrush x:Key="ControlBorderBrush" Color="#999C9F"></SolidColorBrush>
 
+    <Style x:Key="FIcon" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="/MyWPFUI;component/Resources/FontFamily/#sf2015"></Setter>
+        <Setter Property="Foreground" Value="{StaticResource TextForeground}"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="20"/>
+    </Style>
 </ResourceDictionary>

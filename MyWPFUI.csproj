@@ -39,6 +39,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -52,16 +53,27 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\MyButton\Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MyImageButton\Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\MyTextBox\Themes\Generic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Compile Include="Common\MyTime.cs" />
+    <Compile Include="Controls\MyButton\Implementation\MyButton.cs" />
+    <Compile Include="Controls\MyImageButton\Implementation\MyImageButton.cs" />
     <Compile Include="Controls\MyTextBox\Implementation\MyTextBox.cs" />
     <Compile Include="Controls\UserControls\AutoCompleteTextBox.xaml.cs">
       <DependentUpon>AutoCompleteTextBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensiones\Extensiones.cs" />
+    <Compile Include="Helpers\ControlAttachPropertyHepler.cs" />
     <Compile Include="Helpers\TextDigitalHelper.cs" />
     <Page Include="Controls\UserControls\AutoCompleteTextBox.xaml">
       <SubType>Designer</SubType>
@@ -72,6 +84,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\BasicControl\Button.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\BasicControl\CheckBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\BasicControl\RadioButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\BasicControl\TabControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -124,6 +148,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Themes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\FontFamily\iconfont.ttf" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

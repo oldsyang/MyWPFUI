@@ -5,5 +5,7 @@
         <ResourceDictionary Source="/MyWPFUI;component/Resources/Colors/DefaultColorBrush.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/MyWPFUI;component/Resources/BasicControl/TextBox.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/MyWPFUI;component/Resources/BasicControl/Button.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/MyWPFUI;component/Resources/BasicControl/CheckBox.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/MyWPFUI;component/Resources/BasicControl/RadioButton.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
