@@ -9,6 +9,9 @@
         <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush}"></Setter>
         <Setter Property="controls:TextDigitalHelper.Units" Value="2"></Setter>
         <Setter Property="controls:TextDigitalHelper.Count" Value="20"></Setter>
+        <Setter Property="controls:ControlAttachPropertyHepler.MouseOverBorderBrush" Value="{StaticResource FocusBorderBrush}"></Setter>
+        <Setter Property="controls:ControlAttachPropertyHepler.FocusBorderBrush" Value="{StaticResource FocusBorderBrush}"></Setter>
+        <Setter Property="controls:ControlAttachPropertyHepler.FocusBorderShadowColor" Value="#0AFF00"></Setter>
         <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
         <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
         <Setter Property="BorderThickness" Value="1"></Setter>
@@ -22,19 +25,59 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
-                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" >
-                        <ScrollViewer x:Name="PART_ContentHost"  Grid.Column="1" SnapsToDevicePixels="True"
+                    <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
+                        <Grid x:Name="PART_InnerGrid">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition  Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition  Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <!--左侧区域-->
+                            <ContentControl x:Name="leftct" Margin="1,1,0,1" Content="{TemplateBinding controls:ControlAttachPropertyHepler.LeftContent}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            <!--内容区域-->
+                            <ScrollViewer x:Name="PART_ContentHost"  Grid.Column="1" SnapsToDevicePixels="True"
                                           VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Padding="0"
                                       VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
                                       HorizontalScrollBarVisibility="{TemplateBinding HorizontalScrollBarVisibility}" VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}"  />
+                            <!--水印-->
+                            <TextBlock x:Name="Message"  Padding="0" Visibility="Collapsed"
+                                       Text="{TemplateBinding controls:ControlAttachPropertyHepler.Watermark}" Grid.Column="1"
+                                       Foreground="{TemplateBinding Foreground}" IsHitTestVisible="False" Opacity="0.8"
+                                         Margin="{TemplateBinding Padding}" 
+                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}"  />
+                            <!--右侧区域内容区域-->
+                            <ContentPresenter x:Name="rightct" Grid.Column="2" Content="{TemplateBinding controls:ControlAttachPropertyHepler.RightContent}" 
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="Right"
+                                              Tag="{Binding RelativeSource={RelativeSource AncestorType=TextBox}}"
+                                              TextElement.Foreground="{TemplateBinding Foreground}" TextElement.FontSize="{TemplateBinding FontSize}" />
+
+                        </Grid>
 
                     </Border>
 
                     <ControlTemplate.Triggers>
+                        <!--显示水印-->
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Text}" Value="">
+                            <Setter TargetName="Message" Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition SourceName="Message" Property="Visibility" Value="Visible"/>
+                                <Condition Property="IsFocused" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Opacity" Value="0.5" TargetName="Message"></Setter>
+                        </MultiTrigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" Value="{Binding Path=(controls:ControlAttachPropertyHepler.MouseOverBorderBrush),RelativeSource={RelativeSource Self}}"/>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter  Property="BorderBrush" Value="{Binding Path=(controls:ControlAttachPropertyHepler.FocusBorderBrush),RelativeSource={RelativeSource Self}}"/>
+                        </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <!--<Setter Property="Background" Value="{StaticResource DisabledBaseBrush}" TargetName="border"/>-->
                             <Setter Property="BorderBrush" Value="{StaticResource DisabledBaseBrush}" TargetName="border"/>
-                            <!--<Setter Property="Foreground" Value="{StaticResource DisabledBaseBrush}"/>-->
+                            <Setter Property="Foreground" Value="{StaticResource DisabledBaseBrush}"/>
                             <Setter Property="TextBlock.TextTrimming" Value="WordEllipsis"></Setter>
                         </Trigger>
                         <Trigger Property="IsReadOnly" Value="True">
@@ -51,12 +94,12 @@
                                 <Condition Property="IsReadOnly" Value="false"></Condition>
                                 <Condition Property="IsEnabled" Value="true"></Condition>
                             </MultiTrigger.Conditions>
-                            <Setter Property="BorderBrush" Value="{StaticResource FocusBorderBrush}"></Setter>
-                            <Setter TargetName="border" Property="Effect">
+                            <Setter Property="BorderBrush" Value="{Binding Path=(controls:ControlAttachPropertyHepler.FocusBorderBrush),RelativeSource={RelativeSource Self}}"></Setter>
+                            <!--<Setter TargetName="border" Property="Effect">
                                 <Setter.Value>
-                                    <DropShadowEffect BlurRadius="10" ShadowDepth="0" Direction="0" Opacity="0.3" Color="#91B4F3"/>
+                                    <DropShadowEffect BlurRadius="10" ShadowDepth="0" Direction="0" Opacity="0.3" Color="{Binding Path=(controls:ControlAttachPropertyHepler.FocusBorderShadowColor),RelativeSource={RelativeSource Self}}"/>
                                 </Setter.Value>
-                            </Setter>
+                            </Setter>-->
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

@@ -99,6 +99,10 @@
                         </DataTrigger>-->
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Cursor" Value="IBeam"></Setter>
+                            <Setter Property="BorderBrush" Value="{StaticResource FocusBorderBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter  Property="BorderBrush" Value="{StaticResource FocusBorderBrush}"/>
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -107,11 +111,11 @@
                                 <Condition Property="IsEnabled" Value="true"></Condition>
                             </MultiTrigger.Conditions>
                             <Setter Property="BorderBrush" Value="{StaticResource FocusBorderBrush}"></Setter>
-                            <Setter TargetName="waiborder" Property="Effect">
+                            <!--<Setter TargetName="waiborder" Property="Effect">
                                 <Setter.Value>
                                     <DropShadowEffect BlurRadius="10" ShadowDepth="0" Direction="0" Opacity="0.3" Color="#91B4F3"/>
                                 </Setter.Value>
-                            </Setter>
+                            </Setter>-->
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

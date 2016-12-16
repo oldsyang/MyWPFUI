@@ -3,7 +3,7 @@
                     >
     
     <SolidColorBrush x:Key="DisabledBaseBrush" Color="#dddddd"></SolidColorBrush>
-    <SolidColorBrush x:Key="FocusBorderBrush">#91B4F3</SolidColorBrush>
+    <SolidColorBrush x:Key="FocusBorderBrush">Green</SolidColorBrush>
     <SolidColorBrush x:Key="TextForeground" Color="White"></SolidColorBrush>
     <SolidColorBrush x:Key="ControlBorderBrush" Color="#999C9F"></SolidColorBrush>
 

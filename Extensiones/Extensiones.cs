@@ -41,9 +41,9 @@ namespace MyWPFUI.Controls
         }
 
         /// <summary>
-        /// 查找ContentPresenter
+        /// 查找子级
         /// </summary>
-        /// <typeparam name="childItem"></typeparam>
+        /// <typeparam name="childItem">子级的类型</typeparam>
         /// <param name="obj"></param>
         /// <returns></returns>
         public static childItem FindVisualChild<childItem>(this DependencyObject obj)
@@ -61,6 +61,70 @@ namespace MyWPFUI.Controls
                         return childOfChild;
                 }
             }
+            return null;
+        }
+        /// <summary>
+        /// 通过名称查找子级
+        /// </summary>
+        /// <typeparam name="childItem">子级的类型</typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static childItem FindVisualChild<childItem>(this DependencyObject obj,string name)
+       where childItem : FrameworkElement
+        {
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+            {
+                DependencyObject child = VisualTreeHelper.GetChild(obj, i);
+                if (child != null && child is childItem && (((childItem)child).Name == name | string.IsNullOrWhiteSpace(name)))
+                    return (childItem)child;
+                else
+                {
+                    childItem childOfChild = FindVisualChild<childItem>(child);
+                    if (childOfChild != null)
+                        return childOfChild;
+                }
+            }
+            return null;
+        }
+        /// <summary>
+        /// 查找父级
+        /// </summary>
+        /// <typeparam name="T">父级的类型</typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static T GetParentObject<T>(this DependencyObject obj) where T : FrameworkElement
+        {
+            DependencyObject parent = VisualTreeHelper.GetParent(obj);
+            while (parent != null)
+            {
+                if (parent is T)
+                {
+                    return (T)parent;
+                }
+                parent = VisualTreeHelper.GetParent(parent);
+            }
+
+            return null;
+        }
+        /// <summary>
+        /// 通过名称查找父级
+        /// </summary>
+        /// <typeparam name="T">父级的类型</typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static T GetParentObject<T>(this DependencyObject obj, string name) where T : FrameworkElement
+        {
+            DependencyObject parent = VisualTreeHelper.GetParent(obj);
+            while (parent != null)
+            {
+                if (parent is T && (((T)parent).Name == name | string.IsNullOrWhiteSpace(name)))
+                {
+                    return (T)parent;
+                }
+
+                parent = VisualTreeHelper.GetParent(parent);
+            }
+
             return null;
         }
 

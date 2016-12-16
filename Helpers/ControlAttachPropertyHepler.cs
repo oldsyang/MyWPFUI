@@ -109,6 +109,21 @@ namespace MyWPFUI.Controls
 
         #endregion
 
+        #region FocusBorderShadowColorProperty 焦点边框色，输入控件
+
+        public static readonly DependencyProperty FocusBorderShadowColorProperty = DependencyProperty.RegisterAttached(
+            "FocusBorderShadowColor", typeof(Color), typeof(ControlAttachPropertyHepler), new FrameworkPropertyMetadata(default(Color)));
+        public static void SetFocusBorderShadowColor(DependencyObject element, Color value)
+        {
+            element.SetValue(FocusBorderShadowColorProperty, value);
+        }
+        public static Color GetFocusBorderShadowColor(DependencyObject element)
+        {
+            return (Color)element.GetValue(FocusBorderShadowColorProperty);
+        }
+
+        #endregion
+
         #region MouseOverBorderBrush 鼠标进入边框色，输入控件
 
         public static readonly DependencyProperty MouseOverBorderBrushProperty =
@@ -176,7 +191,7 @@ namespace MyWPFUI.Controls
         }
         #endregion
 
-        #region FIconStyleProperty 字体图标
+        #region FIconStyleProperty 字体图标的字体文件（Textblock的样式，其FontFamily的指定）
 
         #region 图标字体库样式
         /// <summary>
@@ -252,7 +267,7 @@ namespace MyWPFUI.Controls
         #endregion
 
         #endregion
-        
+
         #region FIconProperty 字体图标
         /// <summary>
         /// 字体图标
@@ -411,6 +426,67 @@ namespace MyWPFUI.Controls
             obj.SetValue(LabelTemplateProperty, value);
         }
         #endregion
+
+        #region CommandParameter传递的参数
+        /// <summary>
+        /// CommandParameter
+        /// </summary>
+        public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.RegisterAttached(
+            "CommandParameter", typeof(object), typeof(ControlAttachPropertyHepler), new FrameworkPropertyMetadata(default(object)));
+
+        public static object GetCommandParameter(DependencyObject d)
+        {
+            return (object)d.GetValue(CommandParameterProperty);
+        }
+
+        public static void SetCommandParameter(DependencyObject obj, object value)
+        {
+            obj.SetValue(CommandParameterProperty, value);
+        }
+        #endregion
+
+
+        #region TextBox LeftContent和RightContent的内容
+        /// <summary>
+        /// TextBox左侧内容
+        /// </summary>
+        public static readonly DependencyProperty LeftContentProperty = DependencyProperty.RegisterAttached(
+            "LeftContent", typeof(object), typeof(ControlAttachPropertyHepler), new FrameworkPropertyMetadata(default(object)));
+        /// <summary>
+        /// TextBox左侧内容
+        /// </summary>
+        public static object GetLeftContent(DependencyObject d)
+        {
+            return (object)d.GetValue(LeftContentProperty);
+        }
+        /// <summary>
+        /// TextBox左侧内容
+        /// </summary>
+        public static void SetLeftContent(DependencyObject obj, object value)
+        {
+            obj.SetValue(LeftContentProperty, value);
+        }
+        /// <summary>
+        /// TextBox右侧内容
+        /// </summary>
+        public static readonly DependencyProperty RightContentProperty = DependencyProperty.RegisterAttached(
+            "RightContent", typeof(object), typeof(ControlAttachPropertyHepler), new FrameworkPropertyMetadata(default(object)));
+        /// <summary>
+        /// TextBox右侧内容
+        /// </summary>
+        public static object GetRightContent(DependencyObject d)
+        {
+            return (object)d.GetValue(RightContentProperty);
+        }
+        /// <summary>
+        /// TextBox右侧内容
+        /// </summary>
+        public static void SetRightContent(DependencyObject obj, object value)
+        {
+            obj.SetValue(RightContentProperty, value);
+        }
+        #endregion
+
 
         #region CheckBoxProperty
 
@@ -601,36 +677,54 @@ namespace MyWPFUI.Controls
         /// </summary>
         private static void ClearButtonClick(object sender, ExecutedRoutedEventArgs e)
         {
-            var tbox = e.Parameter as FrameworkElement;
-            if (tbox == null) return;
-            if (tbox is TextBox)
+            try
             {
-                ((TextBox)tbox).Clear();
+                var tbox = e.Parameter as FrameworkElement;
+                if (tbox == null)
+                {
+                    var obj = sender as FrameworkElement;
+                    var parent = obj.GetParentObject<ContentPresenter>("rightct");
+                    if (parent != null)
+                        tbox = (FrameworkElement) parent.Tag;
+                }
+                //else
+                //{
+                //    tbox = text as TextBox;
+                //}
+                if (tbox == null) return;
+                if (tbox is TextBox)
+                {
+                    ((TextBox)tbox).Clear();
+                }
+                if (tbox is PasswordBox)
+                {
+                    ((PasswordBox)tbox).Clear();
+                }
+                if (tbox is ComboBox)
+                {
+                    var cb = tbox as ComboBox;
+                    cb.SelectedItem = null;
+                    cb.Text = string.Empty;
+                }
+                //if (tbox is MultiComboBox)
+                //{
+                //    var cb = tbox as MultiComboBox;
+                //    cb.SelectedItem = null;
+                //    cb.UnselectAll();
+                //    cb.Text = string.Empty;
+                //}
+                if (tbox is DatePicker)
+                {
+                    var dp = tbox as DatePicker;
+                    dp.SelectedDate = null;
+                    dp.Text = string.Empty;
+                }
+                tbox.Focus();
             }
-            if (tbox is PasswordBox)
+            catch (Exception ex)
             {
-                ((PasswordBox)tbox).Clear();
+
             }
-            if (tbox is ComboBox)
-            {
-                var cb = tbox as ComboBox;
-                cb.SelectedItem = null;
-                cb.Text = string.Empty;
-            }
-            //if (tbox is MultiComboBox)
-            //{
-            //    var cb = tbox as MultiComboBox;
-            //    cb.SelectedItem = null;
-            //    cb.UnselectAll();
-            //    cb.Text = string.Empty;
-            //}
-            if (tbox is DatePicker)
-            {
-                var dp = tbox as DatePicker;
-                dp.SelectedDate = null;
-                dp.Text = string.Empty;
-            }
-            tbox.Focus();
         }
 
         #endregion
@@ -652,24 +746,42 @@ namespace MyWPFUI.Controls
         /// </summary>
         private static void OpenFileButtonClick(object sender, ExecutedRoutedEventArgs e)
         {
-            var tbox = e.Parameter as FrameworkElement;
-            var txt = tbox as TextBox;
-            if (txt == null) return;
-            string filter = txt.Tag == null ? "所有文件(*.*)|*.*" : txt.Tag.ToString();
-            if (filter.Contains(".bin"))
+            try
             {
-                filter += "|所有文件(*.*)|*.*";
+                TextBox tbox = null;
+                var text = e.Parameter as FrameworkElement;
+                if (text == null)
+                {
+                    var obj = sender as FrameworkElement;
+                    var parent = obj.GetParentObject<ContentPresenter>("rightct");
+                    if (parent != null)
+                        tbox = (TextBox)parent.Tag;
+                }
+                else
+                {
+                    tbox = text as TextBox;
+                }
+                if (tbox == null) return;
+                string filter = tbox.Tag == null ? "所有文件(*.*)|*.*" : tbox.Tag.ToString();
+                if (filter.Contains(".bin"))
+                {
+                    filter += "|所有文件(*.*)|*.*";
+                }
+                OpenFileDialog fd = new OpenFileDialog();
+                fd.Title = "请选择文件";
+                //“图像文件(*.bmp, *.jpg)|*.bmp;*.jpg|所有文件(*.*)|*.*”
+                fd.Filter = filter;
+                fd.FileName = tbox.Text.Trim();
+                if (fd.ShowDialog() == true)
+                {
+                    tbox.Text = fd.FileName;
+                }
+                tbox.Focus();
             }
-            OpenFileDialog fd = new OpenFileDialog();
-            fd.Title = "请选择文件";
-            //“图像文件(*.bmp, *.jpg)|*.bmp;*.jpg|所有文件(*.*)|*.*”
-            fd.Filter = filter;
-            fd.FileName = txt.Text.Trim();
-            if (fd.ShowDialog() == true)
+            catch (Exception ex)
             {
-                txt.Text = fd.FileName;
+
             }
-            tbox.Focus();
         }
 
         #endregion
@@ -691,17 +803,35 @@ namespace MyWPFUI.Controls
         /// </summary>
         private static void OpenFolderButtonClick(object sender, ExecutedRoutedEventArgs e)
         {
-            var tbox = e.Parameter as FrameworkElement;
-            var txt = tbox as TextBox;
-            if (txt == null) return;
-            FolderBrowserDialog fd = new FolderBrowserDialog();
-            fd.Description = "请选择文件路径";
-            fd.SelectedPath = txt.Text.Trim();
-            if (fd.ShowDialog() == DialogResult.OK)
+            try
             {
-                txt.Text = fd.SelectedPath;
+                TextBox tbox = null;
+                var text = e.Parameter as FrameworkElement;
+                if (text == null)
+                {
+                    var obj = sender as FrameworkElement;
+                    var parent=obj.GetParentObject<ContentPresenter>("rightct");
+                    if (parent != null)
+                        tbox = (TextBox) parent.Tag;
+                }
+                else
+                {
+                    tbox = text as TextBox;
+                }
+                if (tbox == null) return;
+                FolderBrowserDialog fd = new FolderBrowserDialog();
+                fd.Description = "请选择文件路径";
+                fd.SelectedPath = tbox.Text.Trim();
+                if (fd.ShowDialog() == DialogResult.OK)
+                {
+                    tbox.Text = fd.SelectedPath;
+                }
+                tbox.Focus();
             }
-            tbox.Focus();
+            catch (Exception ex)
+            {
+
+            }
         }
 
         #endregion
@@ -723,18 +853,36 @@ namespace MyWPFUI.Controls
         /// </summary>
         private static void SaveFileButtonClick(object sender, ExecutedRoutedEventArgs e)
         {
-            var tbox = e.Parameter as FrameworkElement;
-            var txt = tbox as TextBox;
-            if (txt == null) return;
-            SaveFileDialog fd = new SaveFileDialog();
-            fd.Title = "文件保存路径";
-            fd.Filter = "所有文件(*.*)|*.*";
-            fd.FileName = txt.Text.Trim();
-            if (fd.ShowDialog() == true)
+            try
             {
-                txt.Text = fd.FileName;
+                TextBox tbox = null;
+                var text = e.Parameter as FrameworkElement;
+                if (text == null)
+                {
+                    var obj = sender as FrameworkElement;
+                    var parent = obj.GetParentObject<ContentPresenter>("rightct");
+                    if (parent != null)
+                        tbox = (TextBox)parent.Tag;
+                }
+                else
+                {
+                    tbox = text as TextBox;
+                }
+                if (tbox == null) return;
+                SaveFileDialog fd = new SaveFileDialog();
+                fd.Title = "文件保存路径";
+                fd.Filter = "所有文件(*.*)|*.*";
+                fd.FileName = tbox.Text.Trim();
+                if (fd.ShowDialog() == true)
+                {
+                    tbox.Text = fd.FileName;
+                }
+                tbox.Focus();
             }
-            tbox.Focus();
+            catch (Exception ex)
+            {
+
+            }
         }
 
         #endregion
