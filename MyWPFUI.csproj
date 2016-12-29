@@ -37,9 +37,18 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -53,6 +62,16 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\UserControls\MyLayerServices.cs" />
+    <Compile Include="Extensiones\EnumExtension.cs" />
+    <Compile Include="MVVM\Interactivity\Behavior\SetTargetPropertyBehavior.cs" />
+    <Compile Include="MVVM\Interactivity\CallParameterizedMethodAction.cs" />
+    <Compile Include="MVVM\Interactivity\EventToCommandEx.cs" />
+    <Compile Include="MVVM\Interactivity\InteractionRequest.cs" />
+    <Compile Include="MVVM\Interactivity\InteractionRequestTrigger.cs" />
+    <Compile Include="MVVM\Interactivity\InvokeCommandActionEx.cs" />
+    <Compile Include="MVVM\Interactivity\KeyDownEventToCommandEx.cs" />
+    <Compile Include="WPFUIManage.cs" />
     <Page Include="Controls\MyButton\Themes\Generic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -66,16 +85,91 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Compile Include="Common\MyTime.cs" />
+    <Compile Include="Controls\FrameworkBase\Common\SolidColorBrushConverter.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAnimateBase.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniBounce.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniBounceIn.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniBounceInDown.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniBounceInLeft.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniBounceInRight.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniBounceInUp.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniBounceOut.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniBounceOutDown.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniBounceOutLeft.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniBounceOutRight.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniBounceOutUp.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniFlash.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniHinge.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniJello.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniPulse.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniRotateIn.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniRotateOut.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniRubberBand.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniShake.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniSlideInDown.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniSlideInLeft.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniSlideInRight.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniSlideInUp.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniSlideOutDown.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniSlideOutLeft.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniSlideOutRight.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniSlideOutUp.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniSwing.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniTada.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniType.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniWobble.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniZoomIn.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniZoomInDown.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniZoomInLeft.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniZoomInRight.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniZoomInUp.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniZoomOut.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniZoomOutDown.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniZoomOutLeft.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniZoomOutRight.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\MyAniZoomOutUp.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\BaseTransformAnimation\MyAniRotate.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\BaseTransformAnimation\MyAniScale.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\BaseTransformAnimation\MyAniTranslate.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\TypeAnimation\MyAniCanvas.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\TypeAnimation\MyAniColor.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\TypeAnimation\MyAniDouble.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\TypeAnimation\MyAniInt64.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\TypeAnimation\MyAniDecimal.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\TypeAnimation\MyAnimateTypeBase.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\TypeAnimation\MyAniPoint.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\TypeAnimation\MyAniQuaternion.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\TypeAnimation\MyAniSize.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\TypeAnimation\MyAniThickness.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\TypeAnimation\MyAniVector.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\TypeAnimation\MyAniVector3D.cs" />
+    <Compile Include="Controls\FrameworkBase\MyAnimate\TypeAnimation\MatrixAnimation.cs" />
+    <Compile Include="Controls\Models\MyLayerOptions.cs" />
     <Compile Include="Controls\MyButton\Implementation\MyButton.cs" />
     <Compile Include="Controls\MyImageButton\Implementation\MyImageButton.cs" />
     <Compile Include="Controls\MyTextBox\Implementation\MyTextBox.cs" />
     <Compile Include="Controls\UserControls\AutoCompleteTextBox.xaml.cs">
       <DependentUpon>AutoCompleteTextBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\UserControls\MyLayer.xaml.cs">
+      <DependentUpon>MyLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\UserControls\WaitingBox.xaml.cs">
+      <DependentUpon>WaitingBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Extensiones\Extensiones.cs" />
+    <Compile Include="Extensiones\MyExtension.cs" />
     <Compile Include="Helpers\ControlAttachPropertyHepler.cs" />
     <Compile Include="Helpers\TextDigitalHelper.cs" />
     <Page Include="Controls\UserControls\AutoCompleteTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\UserControls\MyLayer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\UserControls\WaitingBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -88,6 +182,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\BasicControl\CheckBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\BasicControl\Menu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -145,12 +243,35 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="Resources\FontFamily\myuiiconfont.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Themes\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\FontFamily\iconfont.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\waiting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\waiting2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\change.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\icon-circle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Controls\FrameworkBase\MyAnimate\TypeAnimation\创建说明.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\closebtn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lib\Microsoft.Expression.Interactions.dll" />
+    <EmbeddedResource Include="lib\System.Windows.Interactivity.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

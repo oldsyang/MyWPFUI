@@ -1,0 +1,22 @@
+﻿<Window x:Class="MyWPFUI.Controls.MyLayer"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" AllowsTransparency="True" WindowStyle="None" Background="Transparent"
+         ResizeMode="NoResize"  ShowInTaskbar="False" WindowState="Maximized" 
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions">
+    <Grid x:Name="layoutMain" Background="{x:Null}" >
+        <Border  x:Name="body"  VerticalAlignment="Center"  HorizontalAlignment="Center" Visibility="Collapsed">
+            <Grid x:Name="bodyConent">
+                <Grid.RowDefinitions>
+                    <RowDefinition  x:Name="d"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <ContentPresenter x:Name="userPresenter" Grid.Row="1" MinWidth="100" MinHeight="100"></ContentPresenter>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

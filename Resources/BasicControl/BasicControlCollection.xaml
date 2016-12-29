@@ -7,5 +7,6 @@
         <ResourceDictionary Source="/MyWPFUI;component/Resources/BasicControl/Button.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/MyWPFUI;component/Resources/BasicControl/CheckBox.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/MyWPFUI;component/Resources/BasicControl/RadioButton.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/MyWPFUI;component/Resources/BasicControl/Menu.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

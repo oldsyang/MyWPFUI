@@ -85,6 +85,7 @@
                             <!--<Setter Property="Background" Value="{DynamicResource DisabledBaseBrush}" TargetName="Bd"/>-->
                             <Setter Property="BorderBrush" Value="{DynamicResource DisabledBaseBrush}" />
                             <Setter Property="TextBlock.TextTrimming" Value="WordEllipsis"></Setter>
+                            <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBaseBrush}"/>
 
                         </Trigger>
                         <!--<Trigger Property="Width" Value="Auto">

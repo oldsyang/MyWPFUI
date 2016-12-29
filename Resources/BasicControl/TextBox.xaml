@@ -4,7 +4,14 @@
                     xmlns:controls="clr-namespace:MyWPFUI.Controls">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/MyWPFUI;component/Resources/Colors/DefaultColorBrush.xaml"></ResourceDictionary>
+
     </ResourceDictionary.MergedDictionaries>
+    <!--文本操作右键菜单-->
+    <ContextMenu x:Key="TextBoxContextMenu" Style="{StaticResource {x:Type ContextMenu}}">
+        <MenuItem Command="ApplicationCommands.Cut" Icon="&#xe662;"  />
+        <MenuItem Command="ApplicationCommands.Copy" Icon="&#xe661;" />
+        <MenuItem Command="ApplicationCommands.Paste" Icon="&#xe663;"  />
+    </ContextMenu>
     <Style  TargetType="{x:Type TextBox}">
         <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush}"></Setter>
         <Setter Property="controls:TextDigitalHelper.Units" Value="2"></Setter>
@@ -22,6 +29,7 @@
         <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
         <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
         <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
+        <Setter Property="ContextMenu" Value="{StaticResource TextBoxContextMenu}"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
@@ -77,7 +85,7 @@
                         <Trigger Property="IsEnabled" Value="False">
                             <!--<Setter Property="Background" Value="{StaticResource DisabledBaseBrush}" TargetName="border"/>-->
                             <Setter Property="BorderBrush" Value="{StaticResource DisabledBaseBrush}" TargetName="border"/>
-                            <Setter Property="Foreground" Value="{StaticResource DisabledBaseBrush}"/>
+                            <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBaseBrush}"/>
                             <Setter Property="TextBlock.TextTrimming" Value="WordEllipsis"></Setter>
                         </Trigger>
                         <Trigger Property="IsReadOnly" Value="True">
