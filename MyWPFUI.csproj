@@ -64,6 +64,10 @@
   <ItemGroup>
     <Compile Include="Controls\UserControls\MyLayerServices.cs" />
     <Compile Include="Extensiones\EnumExtension.cs" />
+    <Compile Include="MVVM\Interactivity\Behavior\CommandBehavior.cs" />
+    <Compile Include="MVVM\Interactivity\Behavior\CommandBehaviorBinding.cs" />
+    <Compile Include="MVVM\Interactivity\Behavior\EventHandlerGenerator.cs" />
+    <Compile Include="MVVM\Interactivity\Behavior\ExecutionStrategy.cs" />
     <Compile Include="MVVM\Interactivity\Behavior\SetTargetPropertyBehavior.cs" />
     <Compile Include="MVVM\Interactivity\CallParameterizedMethodAction.cs" />
     <Compile Include="MVVM\Interactivity\EventToCommandEx.cs" />
